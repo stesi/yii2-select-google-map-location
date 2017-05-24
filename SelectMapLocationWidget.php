@@ -96,9 +96,9 @@ class SelectMapLocationWidget extends InputWidget
         if (!isset($this->wrapperOptions['style'])) {
             $this->wrapperOptions['style'] = 'width: 100%; height: 500px;';
         }
-        SelectMapLocationAssets::$googleMapApiKey = $this->googleMapApiKey;
+     /*   SelectMapLocationAssets::$googleMapApiKey = $this->googleMapApiKey;
         SelectMapLocationAssets::register($this->view);
-
+*/
         // getting inputs ids
         $address = Html::getInputId($this->model, $this->attribute);
         $latitude = Html::getInputId($this->model, $this->attributeLatitude);
