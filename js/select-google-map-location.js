@@ -13,12 +13,13 @@
  * @param {boolean} options.draggable Marker draggable Option
  * TODO: describe other options here
  */
+
 (function($) {
+
     $.fn.selectLocation = function(options) {
         var self = this;
-        var map;
+var map;
 
-        $(document).ready(function() {
             var mapOptions = {
                 center: new google.maps.LatLng(55.997778, 37.190278),
                 zoom: 12,
@@ -50,7 +51,7 @@
                 }
                 marker = new google.maps.Marker({
                     'position'          : latLng,
-                    'map'               : map,
+                    'map'               :  map ,
                     'draggable'         : options.draggable
                 });
 
@@ -99,6 +100,7 @@
                 if (!item.geometry) {
                     return;
                 }
+              //  debugger;
                 var bounds = item.geometry.viewport ? item.geometry.viewport : item.geometry.bounds;
                 var center = null;
                 if (bounds) {
@@ -131,8 +133,15 @@
                     }
                 });
             }
+        google.maps.event.addListener(map, 'idle', function()
+        {
+            google.maps.event.trigger(map, 'resize');
+        });
 
             // автокомплит для поиска местонахождения
+      //  debugger;
+            if(typeof options.address !=='undefined' && $(options.address).length>0){
+//debugger;
             var autocomplete = new google.maps.places.Autocomplete($(options.address).get(0));
 
             google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -142,17 +151,20 @@
                 }
                 selectLocation(place);
             });
-
+            }
             var defaults = {
                 'lat'       : $(options.latitude).val(),
                 'lng'       : $(options.longitude).val()
             };
             if (defaults.lat && defaults.lng) {
+
                 var center = new google.maps.LatLng(defaults.lat, defaults.lng);
                 map.setCenter(center);
+
                 createMarker(center);
                 setLatLngAttributes(center);
+
             }
-        });
+
     };
 })(jQuery);
