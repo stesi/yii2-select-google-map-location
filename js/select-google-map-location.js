@@ -54,7 +54,7 @@
                 'map': map,
                 'draggable': options.draggable
             });
-
+//debugger;
             if (options.draggable) {
                 google.maps.event.addListener(marker, 'dragend', function () {
                     marker.changePosition(marker.getPosition());
@@ -73,7 +73,12 @@
                         latLng: pos
                     },
                     function (results, status) {
+                        /*console.log(results)
+                         debugger;
+                         console.log(status)*/
                         if (status == google.maps.GeocoderStatus.OK) {
+                            // debugger;
+                            setFieldsRoute(results[0]);
                             setLatLngAttributes(results[0].geometry.location);
                         }
 
@@ -82,14 +87,46 @@
                 );
             }
         };
+        var getFormattedRoute = function (results) {
 
+            var infos = [];
+            $.each(results.address_components, function (i, v) {
+
+                infos[v.types[0]] = {
+                    long_name: v.long_name,
+                    short_name: v.short_name,
+                    formatted_address: v.formatted_address
+                }
+            })
+
+            return infos;
+        }
+        var setFieldsRoute = function (address_components_array) {
+            var array_components = getFormattedRoute(address_components_array)
+           //  debugger;
+            if (typeof options.route !== 'undefined' && $(options.route).length > 0 ) {
+                var route= typeof array_components['route'] != 'undefined'?array_components['route']:"";
+                $(options.route).val(array_components.route.short_name)
+            }
+            if (typeof options.street_number !== 'undefined' && $(options.street_number).length > 0) {
+                var street_number= typeof array_components['street_number'] != 'undefined'?array_components['street_number']:"";
+                $(options.street_number).val(array_components.street_number.short_name)
+            }
+            if (typeof options.postal_code !== 'undefined' && $(options.postal_code).length > 0 ) {
+                var postal_code= typeof array_components['postal_code'] != 'undefined'?array_components['postal_code']:"";
+                $(options.postal_code).val(array_components.postal_code.short_name)
+            }
+        }
         /**
          * Установить координаты точки
          * @param {Object} point объект типа google.maps.LatLng
          */
         var setLatLngAttributes = function (point) {
-            $(options.latitude).val(point.lat());
-            $(options.longitude).val(point.lng());
+            var coords = point;
+
+
+            $(options.latitude).val(coords.lat());
+            $(options.longitude).val(coords.lng());
         };
 
         /**
@@ -97,6 +134,7 @@
          * @param {Object} item
          */
         var selectLocation = function (item) {
+            //debugger;
             if (!item.geometry) {
                 return;
             }
@@ -115,9 +153,11 @@
                 center = new google.maps.LatLng(lat, lng);
             }
             if (center) {
+                //   debugger;
                 map.setCenter(center);
                 createMarker(center);
                 setLatLngAttributes(center);
+
             }
         };
 
@@ -148,9 +188,11 @@
                 if (!place) {
                     return;
                 }
+                setFieldsRoute(place);
                 selectLocation(place);
             });
         }
+        //     debugger;
         var defaults = {
             'lat': $(options.latitude).val(),
             'lng': $(options.longitude).val()
