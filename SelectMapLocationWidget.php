@@ -136,8 +136,8 @@ class SelectMapLocationWidget extends InputWidget
                 $(\'#' . $this->wrapperOptions['id'] . '\').selectLocation(' . Json::encode($this->jsOptions) . ');
                 '));
         $mapHtml = Html::tag('div', '', $this->wrapperOptions);
-        $mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLatitude);
-        $mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLongitude);
+     //   $mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLatitude);
+        //$mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLongitude);
         if (is_callable($this->renderWidgetMap)) {
             return call_user_func_array($this->renderWidgetMap, [$mapHtml]);
         }
