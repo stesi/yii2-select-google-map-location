@@ -22,7 +22,7 @@ class SelectMapLocationAssets extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
     ];
-
+public static $googleMapApiKey;
   
 
     public function init()
@@ -35,15 +35,15 @@ class SelectMapLocationAssets extends AssetBundle
     /**
      * @inheritdoc
      */
-    /*public static function register($view)
+    public static function register($view)
     {
         /* @var $view \yii\web\View */
-    /*if (empty(self::$googleMapApiKey))
+    if (empty(self::$googleMapApiKey))
     {
     self::$googleMapApiKey = \Yii::$app->params['googleMapApiKey'];
     }
 
     $view->registerJsFile('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=true&key=' . self::$googleMapApiKey);
     return parent::register($view);
-    }*/
+    }
 }
