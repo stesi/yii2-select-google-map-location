@@ -17,9 +17,15 @@
 (function ($) {
 
     $.fn.selectLocation = function (options) {
-        var self = this;
-        var map;
+        var self = this
+        loadMap(this,options);
 
+
+
+    };
+    function loadMap(elem,options){
+        var map;
+        var self = elem;
         var mapOptions = {
             center: new google.maps.LatLng(55.997778, 37.190278),
             zoom: 12,
@@ -219,6 +225,5 @@
             setLatLngAttributes(center);
 
         }
-
-    };
+    }
 })(jQuery);

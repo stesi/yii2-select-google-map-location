@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
+use yii\web\View;
 use yii\widgets\InputWidget;
 
 /**
@@ -123,7 +124,7 @@ class SelectMapLocationWidget extends InputWidget
         if (!isset($this->wrapperOptions['style'])) {
             $this->wrapperOptions['style'] = 'width: 100%; height: 500px;';
         }
-        // SelectMapLocationAssets::$googleMapApiKey = $this->googleMapApiKey;
+
         SelectMapLocationAssets::register($this->view);
 
         // getting inputs ids
@@ -134,7 +135,7 @@ class SelectMapLocationWidget extends InputWidget
         }
         $this->view->registerJs(new JsExpression('  
                 $(\'#' . $this->wrapperOptions['id'] . '\').selectLocation(' . Json::encode($this->jsOptions) . ');
-                '));
+                '),View::POS_END);
         $mapHtml = Html::tag('div', '', $this->wrapperOptions);
      //   $mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLatitude);
         //$mapHtml .= Html::activeHiddenInput($this->model, $this->attributeLongitude);
