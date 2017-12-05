@@ -1,6 +1,6 @@
 <?php
 
-namespace kalyabin\maplocation;
+namespace stesi\maplocation;
 
 use Yii;
 use yii\base\Model;
