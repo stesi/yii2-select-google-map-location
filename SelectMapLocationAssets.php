@@ -1,6 +1,6 @@
 <?php
 
-namespace kalyabin\maplocation;
+namespace stesi\maplocation;
 
 use yii\web\AssetBundle;
 use yii\web\View;
