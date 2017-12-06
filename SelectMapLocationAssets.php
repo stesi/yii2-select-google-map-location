@@ -14,7 +14,7 @@ use yii\web\View;
  */
 class SelectMapLocationAssets extends AssetBundle
 {
-    public $sourcePath = '@vendor/kalyabin/yii2-select-google-map-location';
+    public $sourcePath = '@vendor/stesi/yii2-select-google-map-location';
     public $css = ['css/yii2-select-google-map-location.css'];
     public $js = [
         'js/select-google-map-location.js',
